@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    * {
+      font-family: Menlo, Courier, 'Courier New', fixed-width;
+      font-size: 10px;
+    }
+    td {
+      border-top: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<table id="table">
+  <tbody></tbody>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.slim.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var socket = io.connect('ws://178.79.183.198:8000');
+    socket.on('welcome', function(data) {
+      console.log(data);
+    });
+    socket.on('data-received', function(data) {
+      var timestamp = new Date().toLocaleTimeString();
+      $('#table tbody:first').prepend("<tr><td>" + data.data);
+    });
+  });
+</script>
+</body>
+</html>
